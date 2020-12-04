@@ -1,0 +1,21 @@
+{
+  "name": "my",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-generator": "^4.16.1",
+    "pug": "^3.0.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.13",
+    "nodemon": "^2.0.6"
+  },
+  "scripts": {
+    "start": "nodemon server/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
