@@ -5,6 +5,7 @@
  */
 const express = require("express");
 const path = require("path");
+const users = require("./routes/controllers/usersController.js");
 
 /**
  * App Variables
@@ -32,6 +33,16 @@ app.get("/", (req, res) => {
 app.get("/user", (req, res) => {
     res.render("user", { title: "Profile", userProfile: { nickname: "Auth0" } });
 });
+
+app.get('/example/b', function (req, res, next) {
+    console.log('the response will be sent by the next function ...');
+    next();
+}, function (req, res) {
+    res.send('Hello from B!');
+});
+
+app.use("/users", users);
+
 /**
  * Server Activation
  */
