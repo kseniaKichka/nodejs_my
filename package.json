@@ -1,11 +1,12 @@
 {
   "name": "my",
   "version": "1.0.0",
-  "description": "",
+  "description": "my personal project",
   "main": "server/index.js",
   "dependencies": {
     "express": "^4.17.1",
     "express-generator": "^4.16.1",
+    "mongoose": "^5.11.4",
     "pug": "^3.0.0"
   },
   "devDependencies": {
