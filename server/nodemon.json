@@ -1,8 +1,11 @@
 {
-    "ignore": ["*.test.js", "fixtures/*", "node_modules"],
+    "watch": ["src"],
+    "verbose": true,
+    "ext": "ts",
+    "ignore": ["*.test.js", "fixtures/*"],
+    "exec": "./node_modules/.bin/ts-node ./src/index.ts",
     "execMap": {
-    "rb": "ruby",
-        "pde": "processing --sketch={{pwd}} --run"
+        "ts": "node --require ts-node/register"
     }
 }
 

@@ -3,7 +3,6 @@ const router = express.Router();
 
 const mongoose = require('mongoose');
 
-
 // mongoose.connect('mongodb://localhost:27018', {useNewUrlParser: true});
 mongoose.connect('mongodb://mongo/test', {useNewUrlParser: true});
 const db = mongoose.connection;

@@ -4,12 +4,15 @@
  * Required External Modules
  */
 const express = require("express");
+// import * as express from 'express';
 const path = require("path");
-const users = require("./routes/controllers/usersController.js");
+// const users = require("./routes/controllers/usersController");
+
 
 /**
  * App Variables
  */
+//test
 
 const app = express();
 // const port = process.env.PORT || "3001";
@@ -17,16 +20,18 @@ const port = 3001;
 /**
  *  App Configuration
  */
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, "public")));
 
+
+
 /**
  * Routes Definitions
  */
-
 app.get("/", (req, res) => {
-    console.log('s1')
+    console.log('home')
     res.render("index", { title: "Home1q23" });
 });
 
@@ -41,7 +46,7 @@ app.get('/example/b', function (req, res, next) {
     res.send('Hello from B!');
 });
 
-app.use("/users", users);
+// app.use("/users", users);
 
 /**
  * Server Activation
