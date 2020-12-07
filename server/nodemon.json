@@ -1,6 +1,5 @@
 {
-    "watch": ["server/"],
-    "ignore": ["*.test.js", "fixtures/*"],
+    "ignore": ["*.test.js", "fixtures/*", "node_modules"],
     "execMap": {
     "rb": "ruby",
         "pde": "processing --sketch={{pwd}} --run"

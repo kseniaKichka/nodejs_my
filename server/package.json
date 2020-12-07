@@ -1,8 +1,8 @@
 {
   "name": "my",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "my personal project",
-  "main": "server/index.js",
+  "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
     "express-generator": "^4.16.1",
@@ -10,11 +10,14 @@
     "pug": "^3.0.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.1",
     "browser-sync": "^2.26.13",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
   },
   "scripts": {
-    "start": "nodemon server/index.js"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",

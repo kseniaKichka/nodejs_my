@@ -5,8 +5,9 @@ services:
     restart: always
     command: ["npm", "start"]
     volumes:
-      - .:/usr/scr/app
-    build: .
+      - ./server/:/app
+      - /app/node_modules
+    build: ./server
     ports:
       - 8082:3001
     links:
