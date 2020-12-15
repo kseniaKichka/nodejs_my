@@ -4,6 +4,8 @@
   "description": "my personal project",
   "main": "dist/index.js",
   "dependencies": {
+    "class-transformer": "^0.3.1",
+    "class-validator": "^0.12.2",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

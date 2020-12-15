@@ -1,7 +1,10 @@
-import {Router, Request, Response, request} from "express";
+import {Router, Request, Response} from "express";
 import Controller from '../../interfaces/controller.interface';
 import UserModel from '../../core/models/user.model';
-import * as mongoose from "mongoose";
+import { Types } from "mongoose";
+import HttpException from "../../core/exceptions/HttpException";
+import validationMiddleware from "../middleware/validation.middleware";
+import CreateUserDto from "../../core/dto/user.dto";
 
 class UsersController implements Controller {
 
@@ -14,7 +17,7 @@ class UsersController implements Controller {
 
     private initializeRoutes() {
         this.router.get(this.path, this.getAllUsers);
-        this.router.post(this.path, this.createUSer);
+        this.router.post(this.path, validationMiddleware(CreateUserDto), this.createUSer);
         this.router.get(`${this.path}/:id`, this.getUserById);
     }
 
@@ -43,20 +46,21 @@ class UsersController implements Controller {
         response.sendStatus(200);
     }
 
-    private getUserById =  (request: Request, response: Response) => {
+    private getUserById = async (request: Request, response: Response) => {
         const userId = request.params.id;
-        console.log(userId)
-        const user =  UserModel.findById(userId, function (err, userIn) {
+
+        if (!Types.ObjectId.isValid(userId)) {
+            throw new HttpException(400, 'Data is not valid')
+        }
+
+        const user = await UserModel.findById(userId, function (err) {
             if (err) {
                 console.log('err')
                 console.log(err)
                 response.send(err)
             }
-            if (userIn) {
-                console.log(userIn)
-            }
         });
-        // response.json(user)
+        response.json(user)
     }
 
 }

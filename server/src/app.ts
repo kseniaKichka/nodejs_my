@@ -1,8 +1,8 @@
 import * as bodyParser from 'body-parser';
-import * as cookieParser from 'cookie-parser';
 import express from 'express';
 import * as mongoose from 'mongoose';
 import Controller from './interfaces/controller.interface';
+import errorMiddleware from "./routes/middleware/httpError.middleware";
 
 class App {
     public app: express.Application;
@@ -13,7 +13,7 @@ class App {
         // this.connectToTheDatabase();
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
-        // this.initializeErrorHandling();
+        this.initializeErrorHandling();
     }
 
     public listen() {
@@ -31,9 +31,9 @@ class App {
         // this.app.use(cookieParser());
     }
 
-    // private initializeErrorHandling() {
-    //     this.app.use(errorMiddleware);
-    // }
+    private initializeErrorHandling() {
+        this.app.use(errorMiddleware);
+    }
 
     private initializeControllers(controllers: Controller[]) {
         controllers.forEach((controller) => {
