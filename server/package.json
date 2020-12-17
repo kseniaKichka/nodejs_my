@@ -4,17 +4,21 @@
   "description": "my personal project",
   "main": "dist/index.js",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-generator": "^4.16.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.4",
     "pug": "^3.0.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/express": "^4.17.1",
+    "@types/jsonwebtoken": "^8.5.0",
     "browser-sync": "^2.26.13",
     "nodemon": "^2.0.6",
     "ts-node": "^9.1.1",

@@ -5,6 +5,7 @@ import { Types } from "mongoose";
 import HttpException from "../../core/exceptions/HttpException";
 import validationMiddleware from "../middleware/validation.middleware";
 import CreateUserDto from "../../core/dto/user.dto";
+import authMiddleware from "../middleware/auth.middleware";
 
 class UsersController implements Controller {
 
@@ -16,6 +17,7 @@ class UsersController implements Controller {
     }
 
     private initializeRoutes() {
+        this.router.use(this.path, authMiddleware);
         this.router.get(this.path, this.getAllUsers);
         this.router.post(this.path, validationMiddleware(CreateUserDto), this.createUSer);
         this.router.get(`${this.path}/:id`, this.getUserById);

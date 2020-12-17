@@ -12,6 +12,9 @@ class CreateUserDto {
 
     @IsNumber()
     public age: number;
+
+    @IsString()
+    public password: string;
 }
 
 export default CreateUserDto;

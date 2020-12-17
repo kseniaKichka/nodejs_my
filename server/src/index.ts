@@ -5,6 +5,7 @@ import UserController from './routes/controllers/users.controller';
 import HomeController from './routes/controllers/home.controller';
 
 import 'dotenv/config';
+import AuthenticationController from "./routes/controllers/authentication.controller";
 
 const {
     MONGO_CONNECTION,
@@ -28,7 +29,8 @@ db.once('open', function() {
 const app = new App(
     [
         new UserController(),
-        new HomeController()
+        new HomeController(),
+        new AuthenticationController()
     ],
 );
 
