@@ -9,9 +9,8 @@ import AuthenticationTokenMissingException from "../../core/exceptions/Authentic
 async function authMiddleware(request: RequestWithUser, response: Response, next: NextFunction) {
     const token = request.get('Authorization');
     if (token) {
-        const secret = 'testString';
         try {
-            const verificationResponse = jwt.verify(token, secret) as DataStoredInToken;
+            const verificationResponse = jwt.verify(token, process.env.JWT_SECRET) as DataStoredInToken;
             const id = verificationResponse._id;
             const user = await userModel.findById(id);
             if (user) {

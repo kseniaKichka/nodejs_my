@@ -12,11 +12,12 @@ import TokenData from "../../core/interfaces/tokenData.interface";
 import DataStoredInToken from "../../core/interfaces/dataStoredInToken.interface";
 import UserInterface from "../../core/models/user.interface";
 import UserDoesNotExistException from "../../core/exceptions/UserDoesNotExistException";
-import {TokenExpiredError} from "jsonwebtoken";
+import 'dotenv/config';
+import {Router} from "express";
 
 class AuthenticationController implements Controller {
-    public path = '/auth';
-    public router = express.Router();
+    public path: string = '/auth';
+    public router: Router = express.Router();
     private user = userModel;
 
 
@@ -31,18 +32,18 @@ class AuthenticationController implements Controller {
     }
 
     private refreshToken = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
-        const refreshToken = request.body.refreshToken;
-        const accessToken = request.body.accessToken;
-        const accessTokenDecoded: any = await jwt.verify(accessToken, 'testString', {ignoreExpiration: true});
+        const refreshToken: string = request.body.refreshToken;
+        const accessToken: string = request.body.accessToken;
+        const accessTokenDecoded: any = await jwt.verify(accessToken, process.env.JWT_SECRET, {ignoreExpiration: true});
 
         const userExisted: UserInterface = await this.user.findOne({_id: accessTokenDecoded._id});
 
         if (userExisted) {
 
-            const checkRefreshToken = await bcrypt.compare(userExisted.email + userExisted._id, refreshToken);
+            const checkRefreshToken  = await bcrypt.compare(userExisted.email + userExisted._id, refreshToken);
 
             if (checkRefreshToken) {
-                const tokenData = this.createToken(userExisted);
+                const tokenData: TokenData = this.createToken(userExisted);
                 response.send({
                     accessToken: tokenData.token,
                     expiresIn: tokenData.expiresIn,
@@ -96,14 +97,13 @@ class AuthenticationController implements Controller {
     }
 
     private createToken(user: UserInterface): TokenData {
-        const expiresIn = 20; // an hour
-        const secret = 'testString';
+        const expiresIn: number = parseInt(process.env.JWT_EXPIRES_IN); // an hour
         const dataStoredInToken: DataStoredInToken = {
             _id: user._id,
         };
         return {
             expiresIn,
-            token: jwt.sign(dataStoredInToken, secret, { expiresIn }),
+            token: jwt.sign(dataStoredInToken, process.env.JWT_SECRET, { expiresIn }),
         };
     }
 }

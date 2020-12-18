@@ -7,11 +7,7 @@ import HomeController from './routes/controllers/home.controller';
 import 'dotenv/config';
 import AuthenticationController from "./routes/controllers/authentication.controller";
 
-const {
-    MONGO_CONNECTION,
-} = process.env;
-
-mongoose.connect('mongodb://mongo/test', {useNewUrlParser: true});
+mongoose.connect(`mongodb://${process.env.MONGO_CONNECTION}`, {useNewUrlParser: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {

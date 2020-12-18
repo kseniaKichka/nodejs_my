@@ -6,6 +6,7 @@ import HttpException from "../../core/exceptions/HttpException";
 import validationMiddleware from "../middleware/validation.middleware";
 import CreateUserDto from "../../core/dto/user.dto";
 import authMiddleware from "../middleware/auth.middleware";
+import 'dotenv/config';
 
 class UsersController implements Controller {
 
