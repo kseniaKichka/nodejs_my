@@ -1,12 +1,15 @@
 import Controller from "../../interfaces/controller.interface";
 import { Router, Request, Response } from "express";
+import * as express from "express";
 
 class HomeController implements Controller {
 
-    path: string = '/';
-    router: Router = Router();
+    path: string;
+    router: Router;
 
-    constructor() {
+    constructor(path: string, router: express.Router) {
+        this.path = path;
+        this.router = router;
         this.initializeRoutes();
     }
 

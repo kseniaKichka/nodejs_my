@@ -1,29 +1,9 @@
 import * as mongoose from 'mongoose';
-import UserInterface from './user.interface';
+import { Model } from "mongoose";
+import { UserModelDocumentType } from "../../types/shared/types";
+import userSchema from "../schemas/user.schema";
 
-const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    age: {
-        type: Number,
-        required: false
-    },
-    gender: {
-        type: String,
-        required: false
-    },
-    password: {
-        type: String,
-        required: false
-    }
-});
-
-const userModel = mongoose.model<UserInterface & mongoose.Document>('User', userSchema);
+//generic
+const userModel: Model<UserModelDocumentType> = mongoose.model<UserModelDocumentType>('User', userSchema);
 
 export default userModel;

@@ -1,6 +1,6 @@
 import * as bodyParser from 'body-parser';
 import express from 'express';
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import Controller from './interfaces/controller.interface';
 import errorMiddleware from "./routes/middleware/httpError.middleware";
 
@@ -10,7 +10,7 @@ class App {
     constructor(controllers: Controller[]) {
         this.app = express();
 
-        // this.connectToTheDatabase();
+        this.connectToTheDatabase();
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
         this.initializeErrorHandling();
@@ -40,15 +40,16 @@ class App {
             this.app.use('/', controller.router);
         });
     }
-    //
-    // private connectToTheDatabase() {
-    //     const {
-    //         MONGO_USER,
-    //         MONGO_PASSWORD,
-    //         MONGO_PATH,
-    //     } = process.env;
-    //     mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`);
-    // }
+
+    private connectToTheDatabase() {
+        mongoose.connect(`mongodb://${process.env.MONGO_CONNECTION}`, {useNewUrlParser: true});
+        const db = mongoose.connection;
+        db.on('error', console.error.bind(console, 'connection error:'));
+        db.once('open', function() {
+            // we're connected!
+            console.log('we\'re connected!');
+        });
+    }
 }
 
 export default App;

@@ -13,15 +13,19 @@ import DataStoredInToken from "../../core/interfaces/dataStoredInToken.interface
 import UserInterface from "../../core/models/user.interface";
 import UserDoesNotExistException from "../../core/exceptions/UserDoesNotExistException";
 import 'dotenv/config';
-import {Router} from "express";
+import { Router } from "express";
+import { Model } from "mongoose";
+import { UserModelDocumentType } from "../../types/shared/types";
 
 class AuthenticationController implements Controller {
-    public path: string = '/auth';
-    public router: Router = express.Router();
-    private user = userModel;
+    public path: string;
+    public router: Router;
+    private user: Model<UserModelDocumentType>;
 
-
-    constructor() {
+    constructor(path: string, router: express.Router) {
+        this.path = path;
+        this.router = router;
+        this.user = userModel;
         this.initializeRoutes();
     }
 

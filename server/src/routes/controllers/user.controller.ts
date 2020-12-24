@@ -2,8 +2,8 @@ import Users from "../../core/interfaces/user.interface";
 import * as express from 'express';
 
 class UsersController {
-    public path = '/users';
-    public router = express.Router();
+    public path: string;
+    public router: express.Router;
 
     private users: Users[] = [{
         email: 'Ksenia@gmail.com',
@@ -12,8 +12,9 @@ class UsersController {
         gender: 'female'
     }];
 
-
-    constructor() {
+    constructor(path: string, router: express.Router) {
+        this.path = path;
+        this.router = router;
         this.initializeRoutes();
     }
 

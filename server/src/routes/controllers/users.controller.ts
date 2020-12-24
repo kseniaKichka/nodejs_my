@@ -7,13 +7,15 @@ import validationMiddleware from "../middleware/validation.middleware";
 import CreateUserDto from "../../core/dto/user.dto";
 import authMiddleware from "../middleware/auth.middleware";
 import 'dotenv/config';
+import * as express from "express";
 
 class UsersController implements Controller {
+    public router: Router;
+    public path: string;
 
-    public router = Router();
-    public path: string = '/users';
-
-    constructor() {
+    constructor(path: string, router: express.Router) {
+        this.path = path;
+        this.router = router;
         this.initializeRoutes();
     }
 
