@@ -20,7 +20,7 @@ class UsersController implements Controller {
     }
 
     private initializeRoutes() {
-        this.router.use(this.path, authMiddleware);
+        // this.router.use(this.path, authMiddleware);
         this.router.get(this.path, this.getAllUsers);
         this.router.post(this.path, validationMiddleware(CreateUserDto), this.createUSer);
         this.router.get(`${this.path}/:id`, this.getUserById);

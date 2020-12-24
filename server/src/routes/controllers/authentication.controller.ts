@@ -63,7 +63,7 @@ class AuthenticationController implements Controller {
     }
 
     private registration = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
-        const userData: CreateUserDto = request.body;
+        const userData: any = request.body;
 
         if (await this.user.findOne({email: userData.email})) {
             next(new UserWithThatEmailAlreadyExistsException(userData.email));

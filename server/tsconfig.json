@@ -9,7 +9,7 @@
     "outDir": "./dist",
     "experimentalDecorators": true
   },
-  "lib": ["es2015"],
+  "lib": ["es2019"],
   "include": [
     "src/**/*.ts"
   ],
