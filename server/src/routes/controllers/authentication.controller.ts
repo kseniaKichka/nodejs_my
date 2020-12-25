@@ -4,7 +4,6 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import userModel from "../../core/models/user.model";
 import validationMiddleware from "../middleware/validation.middleware";
-import CreateUserDto from "../../core/dto/user.dto";
 import LogInDto from "../../core/dto/logIn.dto";
 import UserWithThatEmailAlreadyExistsException from "../../core/exceptions/userWithThatEmailAlreadyExistsException";
 import WrongCredentialsException from "../../core/exceptions/WrongCredentialsException";
@@ -63,6 +62,7 @@ class AuthenticationController implements Controller {
     }
 
     private registration = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+        // should not be any
         const userData: any = request.body;
 
         if (await this.user.findOne({email: userData.email})) {
@@ -100,7 +100,7 @@ class AuthenticationController implements Controller {
         }
     }
 
-    private createToken(user: UserInterface): TokenData {
+    private static createToken(user: UserInterface): TokenData {
         const expiresIn: number = parseInt(process.env.JWT_EXPIRES_IN); // an hour
         const dataStoredInToken: DataStoredInToken = {
             _id: user._id,
