@@ -29,28 +29,27 @@ class UsersController implements Controller {
     }
 
     private getAllUsers = async (request: Request, response: Response) => {
-        const users = await UserModel.find({}, function (err) {
-            if (err) {
-                console.log('err')
-                console.log(err)
-                response.send(err).sendStatus(400);
-            }
-        });
-        response.json(users);
+        try {
+            const users = await UserModel.find({});
+            response.json(users);
+        } catch (err) {
+            console.log(err);
+            response.sendStatus(400);
+        }
     }
 
     private createUSer = async (request: Request, response: Response) => {
         const userData = request.body;
-        console.log(userData)
+
         const userModel = new UserModel(userData);
-        await userModel.save(function (err) {
-            if (err) {
-                console.log(err);
-                response.sendStatus(400);
-            }
-        });
-        console.log('saved!');
-        response.sendStatus(200);
+
+        try {
+            await userModel.save();
+            response.sendStatus(200);
+        } catch (err) {
+            console.log(err);
+            response.sendStatus(400);
+        }
     }
 
     private getUserById = async (request: Request, response: Response) => {

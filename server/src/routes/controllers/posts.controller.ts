@@ -34,14 +34,19 @@ class PostsController implements Controller {
         const postsModel = postModel;
         const postData: PostDto = request.body;
 
-        const createdPost = new postsModel({
-            ...postData
-        })
-        const savedData = await createdPost.save();
-        // const savedData = await postsModel.create(postData);
-        console.log(postData);
+        try {
+            const createdPost = new postsModel({
+                ...postData
+            })
+            const savedData = await createdPost.save();
+            // const savedData = await postsModel.create(postData);
+            console.log(postData);
 
-        response.send(savedData);
+            response.send(savedData);
+        } catch (err) {
+            console.log(err);
+            response.sendStatus(400);
+        }
     }
 }
 

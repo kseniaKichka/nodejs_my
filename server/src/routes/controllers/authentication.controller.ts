@@ -100,7 +100,7 @@ class AuthenticationController implements Controller {
         }
     }
 
-    private static createToken(user: UserInterface): TokenData {
+    private createToken(user: UserInterface): TokenData {
         const expiresIn: number = parseInt(process.env.JWT_EXPIRES_IN); // an hour
         const dataStoredInToken: DataStoredInToken = {
             _id: user._id,
