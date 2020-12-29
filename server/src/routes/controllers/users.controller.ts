@@ -9,10 +9,14 @@ import authMiddleware from "../middleware/auth.middleware";
 import 'dotenv/config';
 import * as express from "express";
 import postModel from "../../core/models/post/post.model";
+import UserService from "../../services/user/user.service";
+import DefaultAuthService from "../../services/auth/default.auth.service";
+import userModel from "../../core/models/user.model";
 
 class UsersController implements Controller {
     public router: Router;
     public path: string;
+    private userService: UserService;
 
     constructor(path: string, router: express.Router) {
         this.path = path;
@@ -26,6 +30,8 @@ class UsersController implements Controller {
         this.router.post(this.path, validationMiddleware(CreateUserDto), this.createUSer);
         this.router.get(`${this.path}/:id`, this.getUserById);
         this.router.get(`${this.path}/:id/posts`, this.getPostsByUser);
+
+        this.userService = new UserService(new DefaultAuthService(), userModel);
     }
 
     private getAllUsers = async (request: Request, response: Response) => {
@@ -60,7 +66,7 @@ class UsersController implements Controller {
         }
 
         try {
-            const user = await UserModel.findById(userId);
+            const user = await this.userService.findOneById(userId);
 
             response.json(user)
         } catch (err) {

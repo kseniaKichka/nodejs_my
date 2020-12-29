@@ -1,4 +1,4 @@
-import { Model } from "mongoose";
+import {Model, Query} from "mongoose";
 import { UserModelDocumentType } from "../../types/shared/types";
 import AuthServiceInterface from "../auth/auth.service.interface";
 import SharedUserInterface from "../../core/models/sharedUserInterface";
@@ -18,11 +18,12 @@ export default class UserService {
     }
 
     async findOneById(id: string): Promise<SharedUserInterface & AuthInterface> {
+        console.log('sdf')
+        //todo ????? exec or not exec?????
         return this.user.findOne({_id: id}).exec();
     }
 
     async createUser(userData: LogInDto): Promise<UserModelDocumentType> {
-        // should not be any
         if (await this.user.findOne({email: userData.email})) {
             throw new UserWithThatEmailAlreadyExistsException(userData.email);
         } else {
@@ -37,5 +38,4 @@ export default class UserService {
             return await this.user.create(newUser);
         }
     }
-
 }
