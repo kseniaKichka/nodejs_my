@@ -29,8 +29,8 @@ export default class UserService {
             const hashedPassword = await bcrypt.hash(userData.password, 10)
 
             // todo is this OK??
-            const newUser = {
-                ...userData as UserInterface,
+            const newUser: UserInterface = <UserInterface>{
+                ...userData,
                 password: hashedPassword
             };
 

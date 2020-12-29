@@ -79,7 +79,7 @@ class UsersController implements Controller {
         try {
             //todo how to use query helpers
             // const usersPosts = await postModel.find({}).byUser(userId).exec();
-            const usersPosts = await postModel.find({author: userId}).populate('author', '-password');
+            const usersPosts = await postModel.find({author: userId}).populate('author', '-password, -address');
 
             response.send(usersPosts);
         } catch (err) {

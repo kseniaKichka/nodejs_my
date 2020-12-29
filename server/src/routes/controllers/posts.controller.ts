@@ -1,16 +1,18 @@
 import Controller from "../../interfaces/controller.interface";
 import * as express from "express";
-import postModel from "../../core/models/post/post.model";
 import validationMiddleware from "../middleware/validation.middleware";
 import PostDto from "../../core/dto/post.dto";
+import PostService from "../../services/post/post.service";
 
 class PostsController implements Controller {
     path: string;
     router: express.Router;
+    private postService: PostService;
 
     constructor(path: string, router: express.Router) {
         this.path = path;
         this.router = router;
+        this.postService = new PostService();
         this.initializeRoutes();
     }
 
@@ -20,9 +22,8 @@ class PostsController implements Controller {
     }
 
     private getPosts = async (request: express.Request, response: express.Response) => {
-        const postsModel = postModel;
         try {
-            const posts = await postsModel.find({});
+            const posts = await this.postService.getPosts();
             response.send(posts)
         } catch (err) {
             console.log(err)
@@ -31,16 +32,10 @@ class PostsController implements Controller {
     }
 
     private addPosts = async (request: express.Request, response: express.Response) => {
-        const postsModel = postModel;
         const postData: PostDto = request.body;
 
         try {
-            const createdPost = new postsModel({
-                ...postData
-            })
-            const savedData = await createdPost.save();
-            // const savedData = await postsModel.create(postData);
-            console.log(postData);
+            const savedData = await this.postService.createPost(postData);
 
             response.send(savedData);
         } catch (err) {
