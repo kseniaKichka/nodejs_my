@@ -1,8 +1,8 @@
 import { Request } from 'express';
-import UserInterface from "../models/user.interface";
+import SharedUserInterface from "../models/sharedUserInterface";
 
 interface RequestWithUser extends Request {
-    user: UserInterface;
+    user: SharedUserInterface;
 }
 
 export default RequestWithUser;

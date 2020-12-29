@@ -1,4 +1,4 @@
-interface UserInterface {
+interface SharedUserInterface {
     _id?: string;
     name: string,
     email: string,
@@ -7,6 +7,4 @@ interface UserInterface {
     password: string
 }
 
-export default UserInterface;
-
-
+export default SharedUserInterface;
